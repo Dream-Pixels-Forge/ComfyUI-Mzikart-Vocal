@@ -1,0 +1,10 @@
+{
+  "comp_threshold": -18.0,
+  "comp_ratio": 6.0,
+  "deess_sensitivity": 0.8,
+  "eq_presence": 4.0,
+  "eq_air": 2.5,
+  "doubler_intensity": 0.4,
+  "reverb_type": "room",
+  "reverb_wet": 0.1
+}

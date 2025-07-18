@@ -1,0 +1,10 @@
+{
+  "comp_threshold": -25.0,
+  "comp_ratio": 2.8,
+  "deess_sensitivity": 0.6,
+  "eq_presence": 3.5,
+  "eq_air": 4.5,
+  "doubler_intensity": 0.3,
+  "reverb_type": "plate",
+  "reverb_wet": 0.2
+}

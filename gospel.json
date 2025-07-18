@@ -1,0 +1,10 @@
+{
+  "comp_threshold": -22.0,
+  "comp_ratio": 2.5,
+  "deess_sensitivity": 0.5,
+  "eq_presence": 2.5,
+  "eq_air": 3.0,
+  "doubler_intensity": 0.7,
+  "reverb_type": "church",
+  "reverb_wet": 0.25
+}
