@@ -1,10 +1,18 @@
 import os
 import torch
-import torchaudio
-import noisereduce as nr
 import numpy as np
 from datetime import datetime
 import folder_paths
+
+# Try to import noisereduce
+try:
+    import noisereduce as nr
+    HAS_NOISEREDUCE = True
+except ImportError:
+    HAS_NOISEREDUCE = False
+    print("Warning: noisereduce package not found. Noise reduction will be disabled.")
+    print("To enable noise reduction, run the install_noisereduce.bat script or use:")
+    print("pip install noisereduce")
 
 class MzikartNoiseCutter:
     """
@@ -58,6 +66,10 @@ class MzikartNoiseCutter:
     CATEGORY = "Mzikart/Audio"
 
     def denoise_audio(self, audio_file, preset, noise_threshold, noise_duration, aggressiveness, output_format):
+        # Check if noisereduce is available
+        if not HAS_NOISEREDUCE:
+            raise ImportError("The noisereduce package is required for noise reduction. Please install it using: pip install noisereduce")
+            
         # Apply preset if not custom
         if preset != "Custom":
             settings = self.PRESETS[preset]
@@ -70,6 +82,11 @@ class MzikartNoiseCutter:
         if not audio_file:
             raise ValueError("Audio file path must be provided")
         
+        try:
+            import torchaudio
+        except ImportError:
+            raise ImportError("The torchaudio package is required. Please install it using: pip install torchaudio")
+            
         # Get absolute path
         input_dir = folder_paths.get_input_directory()
         file_path = os.path.join(input_dir, audio_file) if not os.path.isabs(audio_file) else audio_file

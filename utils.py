@@ -1,5 +1,22 @@
 import torch
 import numpy as np
+import importlib.util
+import sys
+
+def check_dependency(package_name):
+    """Check if a package is installed and return True/False."""
+    spec = importlib.util.find_spec(package_name)
+    return spec is not None
+
+def install_dependency(package_name):
+    """Try to install a package using pip."""
+    try:
+        import subprocess
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
+        return True
+    except Exception as e:
+        print(f"Error installing {package_name}: {e}")
+        return False
 
 def extract_audio_tensor(audio):
     """Extract audio tensor from various input formats.
