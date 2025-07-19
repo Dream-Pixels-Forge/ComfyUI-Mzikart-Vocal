@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from scipy.signal import butter, sosfilt
-from . import extract_audio_tensor
+from .utils import extract_audio_tensor
 
 
 class VocalDeesserNode:

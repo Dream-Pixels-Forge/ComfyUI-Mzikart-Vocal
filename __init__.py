@@ -6,6 +6,8 @@ from .vocal_doubler import VocalDoublerNode
 from .vocal_reverb import VocalReverbNode
 from .vocal_limiter import VocalLimiterNode
 from .vocal_processor import VocalProcessorNode
+from .mastering_combiner import MasteringCombinerNode
+from .mzikart_player import MzikartPlayerNode, setup_audio_routes
 
 # Node class mappings
 NODE_CLASS_MAPPINGS = {
@@ -15,7 +17,9 @@ NODE_CLASS_MAPPINGS = {
     "VocalDoublerNode": VocalDoublerNode,
     "VocalReverbNode": VocalReverbNode,
     "VocalLimiterNode": VocalLimiterNode,
-    "VocalProcessorNode": VocalProcessorNode
+    "VocalProcessorNode": VocalProcessorNode,
+    "MasteringCombinerNode": MasteringCombinerNode,
+    "MzikartPlayerNode": MzikartPlayerNode
 }
 
 # Node display name mappings
@@ -26,10 +30,12 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "VocalDoublerNode": "🎤 Vocal Doubler",
     "VocalReverbNode": "🎤 Vocal Reverb",
     "VocalLimiterNode": "🎤 Vocal Limiter",
-    "VocalProcessorNode": "🎤 Vocal Processor"
+    "VocalProcessorNode": "🎤 Vocal Processor",
+    "MasteringCombinerNode": "🔊 Mastering Combiner",
+    "MzikartPlayerNode": "🎵 Mzikart Player"
 }
 
 # Web directory for any JS/CSS files
 WEB_DIRECTORY = "./js"
 
-__all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS', 'WEB_DIRECTORY']
+__all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS', 'WEB_DIRECTORY', 'setup_audio_routes']

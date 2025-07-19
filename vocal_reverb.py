@@ -10,7 +10,7 @@ class VocalReverbNode:
             "required": {
                 "audio": ("AUDIO",),
                 "reverb_type": (["hall", "plate", "room", "church"], {"default": "hall"}),
-                "size": ("FLOAT", {"default": 1.5, "min": 0.5, "max": 3.0, "step": 0.1}),
+                "size": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 3.0, "step": 0.1}),
                 "wet_dry": ("FLOAT", {"default": 0.15, "min": 0.0, "max": 1.0, "step": 0.01}),
             }
         }
@@ -115,43 +115,43 @@ class VocalReverbNode:
         t = np.arange(length) / sample_rate
         decay = np.exp(-t / (0.7 * size))
         return decay * np.random.randn(length)
-        
+
     def create_room_ir(self, length, sample_rate, size):
         """Create room impulse response"""
         t = np.arange(length) / sample_rate
         # Shorter decay for room reverb
         decay = np.exp(-t / (0.4 * size))
         early_reflections = np.zeros(length)
-        
+
         # Add early reflections (more pronounced for room)
         reflection_times = [0.002, 0.005, 0.008, 0.012, 0.015]
         for rt in reflection_times:
             idx = int(rt * sample_rate)
             if idx < length:
                 early_reflections[idx] = 0.8 * np.random.randn()
-        
+
         # Less diffuse late reverb for room
         late_reverb = 0.3 * np.random.randn(length) * decay
-        
+
         return early_reflections + late_reverb
-    
+
     def create_church_ir(self, length, sample_rate, size):
         """Create church impulse response"""
         t = np.arange(length) / sample_rate
         # Longer decay for church reverb
         decay = np.exp(-t / (1.2 * size))
         early_reflections = np.zeros(length)
-        
+
         # Add early reflections (more sparse for church)
         reflection_times = [0.008, 0.020, 0.035, 0.050, 0.065]
         for rt in reflection_times:
             idx = int(rt * sample_rate)
             if idx < length:
                 early_reflections[idx] = 0.5 * np.random.randn()
-        
+
         # More diffuse late reverb for church
         late_reverb = 0.6 * np.random.randn(length) * decay
-        
+
         return early_reflections + late_reverb
 
     def process_channel(self, audio, ir, wet_dry):

@@ -1,0 +1,65 @@
+.mzikart-player {
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+}
+
+.mzikart-player select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #3c3c3c;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+.mzikart-player .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.mzikart-player button {
+    background-color: #4a4a4a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mzikart-player button:hover {
+    background-color: #5a5a5a;
+}
+
+.mzikart-player .progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mzikart-player .time-display {
+    font-size: 12px;
+    color: #aaa;
+    min-width: 40px;
+    text-align: center;
+}
+
+.mzikart-player input[type="range"] {
+    flex: 1;
+    height: 4px;
+    background: #555;
+    border-radius: 2px;
+    outline: none;
+}
+
+.mzikart-player .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

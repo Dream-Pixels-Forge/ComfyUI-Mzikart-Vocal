@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import random
-from . import extract_audio_tensor
+from .utils import extract_audio_tensor
 
 
 class VocalDoublerNode:
