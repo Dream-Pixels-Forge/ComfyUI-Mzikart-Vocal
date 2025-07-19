@@ -1,0 +1,26 @@
+3. Click Install
+
+## Nodes Included
+
+- 🎤 Vocal Compressor
+- 🎤 Vocal De-Esser
+- 🎤 Vocal EQ
+- 🎤 Vocal Doubler
+- 🎤 Vocal Reverb
+- 🎤 Vocal Limiter
+- 🎤 Vocal Processor (All-in-one)
+
+## Usage Examples
+
+### Basic Vocal Chain
+```json
+{
+  "vocal_chain": [
+    "VocalDeesserNode",
+    "VocalCompressorNode",
+    "VocalEQNode",
+    "VocalDoublerNode",
+    "VocalReverbNode",
+    "VocalLimiterNode"
+  ]
+}

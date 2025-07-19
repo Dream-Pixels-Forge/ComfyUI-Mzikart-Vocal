@@ -1,0 +1,94 @@
+{
+  "vocal_chain": {
+    "nodes": [
+      {
+        "id": "vocal_compressor",
+        "type": "CompressorNode",
+        "inputs": {
+          "audio": ["raw_vocals", 0],
+          "threshold": -25.0,
+          "ratio": 3.0,
+          "attack": 10.0,
+          "release": 150.0,
+          "makeup_gain": 4.0,
+          "lookahead": 5.0,
+          "knee": 6.0
+        },
+        "class_type": "CompressorNode",
+        "_meta": {"title": "Vocal Leveling"}
+      },
+      {
+        "id": "deesser",
+        "type": "MasteringSuiteNode",
+        "inputs": {
+          "audio": ["vocal_compressor", 0],
+          "bass": 0.0,
+          "mid": -3.0,
+          "treble": -4.0,
+          "exciter_intensity": 0.0,
+          "exciter_freq": 6000.0,
+          "stereo_width": 1.0,
+          "saturation": 0.0
+        },
+        "class_type": "MasteringSuiteNode",
+        "_meta": {"title": "De-essing (5-8kHz Cut)"}
+      },
+      {
+        "id": "vocal_eq",
+        "type": "MasteringEffects",
+        "inputs": {
+          "audio": ["deesser", 0],
+          "lufs_target": -18.0,
+          "bass_boost": -1.0,
+          "treble_boost": 3.0,
+          "compression": 0.3,
+          "stereo_width": 1.0,
+          "vocal_clarity": 0.9,
+          "genre": "none"
+        },
+        "class_type": "MasteringEffects",
+        "_meta": {"title": "Vocal EQ Enhancement"}
+      },
+      {
+        "id": "vocal_effects",
+        "type": "AudioPostProcessor",
+        "inputs": {
+          "audio": ["vocal_eq", 0],
+          "effect": "vocal_doubler",
+          "intensity": 0.6,
+          "wet_dry": 0.25
+        },
+        "class_type": "AudioPostProcessor",
+        "_meta": {"title": "Vocal Doubling"}
+      },
+      {
+        "id": "vocal_reverb",
+        "type": "AudioPostProcessor",
+        "inputs": {
+          "audio": ["vocal_effects", 0],
+          "effect": "hall_reverb",
+          "intensity": 0.4,
+          "wet_dry": 0.15
+        },
+        "class_type": "AudioPostProcessor",
+        "_meta": {"title": "Vocal Reverb"}
+      },
+      {
+        "id": "vocal_limiter",
+        "type": "LimiterNode",
+        "inputs": {
+          "audio": ["vocal_reverb", 0],
+          "threshold": -0.3,
+          "release": 30.0,
+          "oversampling": 8,
+          "lookahead": 5.0
+        },
+        "class_type": "LimiterNode",
+        "_meta": {"title": "Vocal Peak Control"}
+      }
+    ],
+    "outputs": {
+      "processed_vocals": ["vocal_limiter", 0]
+    }
+  }
+}

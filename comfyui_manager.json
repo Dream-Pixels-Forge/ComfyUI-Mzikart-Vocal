@@ -1,0 +1,11 @@
+{
+  "custom_nodes": [
+    {
+      "title": "ComfyUI Audio Vocal",
+      "author": "YOUR_NAME",
+      "description": "Professional vocal processing nodes",
+      "reference": "https://github.com/YOUR_USERNAME/ComfyUI-Audio-Vocal",
+      "install_requirements": true
+    }
+  ]
+}
