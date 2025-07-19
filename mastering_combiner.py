@@ -45,26 +45,48 @@ class MasteringCombinerNode:
                 # Get the length (use the min)
                 length = min(audio1_np.shape[1], audio2_np.shape[1])
 
-                # Resize arrays
+                # Resize arrays with proper dimensions
                 audio1_resized = np.zeros((channels, length))
                 audio2_resized = np.zeros((channels, length))
 
-                # Copy data - handle different channel counts properly
-                for c in range(channels):
-                    if c < audio1_np.shape[0]:
-                        audio1_resized[c, :min(length, audio1_np.shape[1])] = audio1_np[c, :min(
-                            length, audio1_np.shape[1])]
+                # Copy data from audio1 - handle different channel counts
+                for c in range(min(channels, audio1_np.shape[0])):
+                    # Get the slice length for this channel
+                    slice_length = min(length, audio1_np.shape[1])
+                    # Copy the data
+                    audio1_resized[c, :slice_length] = audio1_np[c, :slice_length]
+                
+                # If audio1 has fewer channels than the target, duplicate the last channel
+                if audio1_np.shape[0] < channels:
+                    for c in range(audio1_np.shape[0], channels):
+                        audio1_resized[c] = audio1_resized[0]
 
-                for c in range(channels):
-                    if c < audio2_np.shape[0]:
-                        audio2_resized[c, :min(length, audio2_np.shape[1])] = audio2_np[c, :min(
-                            length, audio2_np.shape[1])]
+                # Copy data from audio2 - handle different channel counts
+                for c in range(min(channels, audio2_np.shape[0])):
+                    # Get the slice length for this channel
+                    slice_length = min(length, audio2_np.shape[1])
+                    # Copy the data
+                    audio2_resized[c, :slice_length] = audio2_np[c, :slice_length]
+                
+                # If audio2 has fewer channels than the target, duplicate the last channel
+                if audio2_np.shape[0] < channels:
+                    for c in range(audio2_np.shape[0], channels):
+                        audio2_resized[c] = audio2_resized[0]
 
                 audio1_np = audio1_resized
                 audio2_np = audio2_resized
 
             # Mix the audio - ensure proper broadcasting
-            combined = np.zeros_like(audio1_np)
+            # First make sure both arrays have the same shape
+            if audio1_np.shape != audio2_np.shape:
+                print(f"Warning: Audio shapes still don't match after resizing: {audio1_np.shape} vs {audio2_np.shape}")
+                # Use the smaller shape for both
+                min_channels = min(audio1_np.shape[0], audio2_np.shape[0])
+                min_length = min(audio1_np.shape[1], audio2_np.shape[1])
+                audio1_np = audio1_np[:min_channels, :min_length]
+                audio2_np = audio2_np[:min_channels, :min_length]
+                
+            # Now mix the audio
             combined = (1 - mix_ratio) * audio1_np + mix_ratio * audio2_np
 
             # Normalize if requested
@@ -110,10 +132,16 @@ class MasteringCombinerNode:
             if isinstance(audio2, dict):
                 print(f"Audio2 keys: {list(audio2.keys())}")
 
-            # Print shape information for debugging
+            # Print detailed shape information for debugging
             if 'audio1_np' in locals() and 'audio2_np' in locals():
-                print(
-                    f"Audio1 shape: {audio1_np.shape}, Audio2 shape: {audio2_np.shape}")
+                print(f"Audio1 shape: {audio1_np.shape}, Audio2 shape: {audio2_np.shape}")
+                print(f"Audio1 channels: {audio1_np.shape[0]}, Audio2 channels: {audio2_np.shape[0]}")
+                print(f"Audio1 length: {audio1_np.shape[1]}, Audio2 length: {audio2_np.shape[1]}")
+                
+            # Print tensor information
+            if 'audio1_tensor' in locals() and 'audio2_tensor' in locals():
+                print(f"Original audio1_tensor shape: {audio1_tensor.shape}")
+                print(f"Original audio2_tensor shape: {audio2_tensor.shape}")
 
             traceback.print_exc()
             raise ValueError(f"MasteringCombinerNode error: {str(e)}")
