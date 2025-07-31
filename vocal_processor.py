@@ -22,7 +22,7 @@ class VocalProcessorNode:
     RETURN_TYPES = ("AUDIO",)
     RETURN_NAMES = ("processed_vocals",)
     FUNCTION = "process_vocals"
-    CATEGORY = "Mzikart/Mastering"
+    CATEGORY = "Mzikart/Mastering III"
 
     def process_vocals(self, audio, genre, aggressiveness):
         # Ensure audio is properly formatted

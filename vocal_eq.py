@@ -20,7 +20,7 @@ class VocalEQNode:
     RETURN_TYPES = ("AUDIO",)
     RETURN_NAMES = ("eq_audio",)
     FUNCTION = "apply_eq"
-    CATEGORY = "Mzikart/Mastering"
+    CATEGORY = "Mzikart/Mastering III"
 
     def apply_eq(self, audio, low_cut, presence_boost, presence_freq, air_boost, air_freq):
         try:
@@ -31,18 +31,20 @@ class VocalEQNode:
                 elif 'waveform' in audio:
                     audio_tensor = audio['waveform']
                 else:
-                    raise ValueError(f"Audio dict must contain 'samples' or 'waveform' key")
+                    raise ValueError(
+                        f"Audio dict must contain 'samples' or 'waveform' key")
             else:
                 audio_tensor = audio
-                
+
             # Convert to numpy for processing
             if isinstance(audio_tensor, torch.Tensor):
                 if audio_tensor.dim() == 3:
                     audio_tensor = audio_tensor.squeeze(0)
                 audio_np = audio_tensor.numpy()
             else:
-                raise TypeError(f"Expected tensor but got {type(audio_tensor)}")
-                
+                raise TypeError(
+                    f"Expected tensor but got {type(audio_tensor)}")
+
             sample_rate = 48000
 
             # Process each channel
@@ -55,7 +57,7 @@ class VocalEQNode:
 
             # Convert back to tensor and ensure correct shape
             processed_tensor = torch.from_numpy(processed).unsqueeze(0)
-            
+
             # Return in the same format as input
             if isinstance(audio, dict):
                 # Copy the original dict and update samples

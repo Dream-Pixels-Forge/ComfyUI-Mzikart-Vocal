@@ -19,7 +19,7 @@ class VocalDoublerNode:
     RETURN_TYPES = ("AUDIO",)
     RETURN_NAMES = ("doubled_audio",)
     FUNCTION = "double"
-    CATEGORY = "Mzikart/Mastering"
+    CATEGORY = "Mzikart/Mastering III"
 
     def double(self, audio, intensity, delay, pitch_shift):
         try:

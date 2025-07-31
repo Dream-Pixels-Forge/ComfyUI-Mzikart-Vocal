@@ -66,6 +66,7 @@ if HAS_NOISE_CUTTER:
 WEB_DIRECTORY = "./js"
 
 # Export only what's available
-__all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS', 'WEB_DIRECTORY']
+__all__ = ['NODE_CLASS_MAPPINGS',
+           'NODE_DISPLAY_NAME_MAPPINGS', 'WEB_DIRECTORY']
 if HAS_PLAYER:
     __all__.append('setup_audio_routes')

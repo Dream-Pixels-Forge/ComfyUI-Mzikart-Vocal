@@ -22,7 +22,7 @@ class VocalCompressorNode:
     RETURN_TYPES = ("AUDIO",)
     RETURN_NAMES = ("compressed_audio",)
     FUNCTION = "compress"
-    CATEGORY = "Mzikart/Mastering"
+    CATEGORY = "Mzikart/Mastering III"
 
     def compress(self, audio, threshold, ratio, attack, release, makeup_gain, knee, genre):
         try:

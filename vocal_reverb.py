@@ -10,7 +10,7 @@ class VocalReverbNode:
             "required": {
                 "audio": ("AUDIO",),
                 "reverb_type": (["hall", "plate", "room", "church"], {"default": "hall"}),
-                "size": ("FLOAT", {"default": 1.5, "min": 0.1, "max": 3.0, "step": 0.1}),
+                "size": ("FLOAT", {"default": 1.5, "min": 0.01, "max": 3.0, "step": 0.01}),
                 "wet_dry": ("FLOAT", {"default": 0.15, "min": 0.0, "max": 1.0, "step": 0.01}),
             }
         }
@@ -18,7 +18,7 @@ class VocalReverbNode:
     RETURN_TYPES = ("AUDIO",)
     RETURN_NAMES = ("reverb_audio",)
     FUNCTION = "apply_reverb"
-    CATEGORY = "Mzikart/Mastering"
+    CATEGORY = "Mzikart/Mastering III"
 
     def apply_reverb(self, audio, reverb_type, size, wet_dry):
         try:

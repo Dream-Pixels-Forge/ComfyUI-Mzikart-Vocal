@@ -46,7 +46,7 @@ class MzikartPlayerNode:
     RETURN_TYPES = ("AUDIO",)
     RETURN_NAMES = ("audio",)
     FUNCTION = "process"
-    CATEGORY = "audio/tools"
+    CATEGORY = "Mzikart/tools"
     OUTPUT_NODE = True
 
     def get_output_directory(self):

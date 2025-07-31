@@ -18,7 +18,7 @@ class VocalDeesserNode:
     RETURN_TYPES = ("AUDIO",)
     RETURN_NAMES = ("deessed_audio",)
     FUNCTION = "deess"
-    CATEGORY = "Mzikart/Mastering"
+    CATEGORY = "Mzikart/Mastering III"
 
     def deess(self, audio, sensitivity, frequency):
         try:

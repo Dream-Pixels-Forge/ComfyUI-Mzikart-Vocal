@@ -18,7 +18,7 @@ class MasteringCombinerNode:
     RETURN_TYPES = ("AUDIO",)
     RETURN_NAMES = ("combined_audio",)
     FUNCTION = "combine_audio"
-    CATEGORY = "Mzikart/Mastering"
+    CATEGORY = "Mzikart/Mastering III"
 
     def combine_audio(self, audio1, audio2, mix_ratio, normalize):
         try:
@@ -54,8 +54,9 @@ class MasteringCombinerNode:
                     # Get the slice length for this channel
                     slice_length = min(length, audio1_np.shape[1])
                     # Copy the data
-                    audio1_resized[c, :slice_length] = audio1_np[c, :slice_length]
-                
+                    audio1_resized[c,
+                                   :slice_length] = audio1_np[c, :slice_length]
+
                 # If audio1 has fewer channels than the target, duplicate the last channel
                 if audio1_np.shape[0] < channels:
                     for c in range(audio1_np.shape[0], channels):
@@ -66,8 +67,9 @@ class MasteringCombinerNode:
                     # Get the slice length for this channel
                     slice_length = min(length, audio2_np.shape[1])
                     # Copy the data
-                    audio2_resized[c, :slice_length] = audio2_np[c, :slice_length]
-                
+                    audio2_resized[c,
+                                   :slice_length] = audio2_np[c, :slice_length]
+
                 # If audio2 has fewer channels than the target, duplicate the last channel
                 if audio2_np.shape[0] < channels:
                     for c in range(audio2_np.shape[0], channels):
@@ -79,13 +81,14 @@ class MasteringCombinerNode:
             # Mix the audio - ensure proper broadcasting
             # First make sure both arrays have the same shape
             if audio1_np.shape != audio2_np.shape:
-                print(f"Warning: Audio shapes still don't match after resizing: {audio1_np.shape} vs {audio2_np.shape}")
+                print(
+                    f"Warning: Audio shapes still don't match after resizing: {audio1_np.shape} vs {audio2_np.shape}")
                 # Use the smaller shape for both
                 min_channels = min(audio1_np.shape[0], audio2_np.shape[0])
                 min_length = min(audio1_np.shape[1], audio2_np.shape[1])
                 audio1_np = audio1_np[:min_channels, :min_length]
                 audio2_np = audio2_np[:min_channels, :min_length]
-                
+
             # Now mix the audio
             combined = (1 - mix_ratio) * audio1_np + mix_ratio * audio2_np
 
@@ -134,10 +137,13 @@ class MasteringCombinerNode:
 
             # Print detailed shape information for debugging
             if 'audio1_np' in locals() and 'audio2_np' in locals():
-                print(f"Audio1 shape: {audio1_np.shape}, Audio2 shape: {audio2_np.shape}")
-                print(f"Audio1 channels: {audio1_np.shape[0]}, Audio2 channels: {audio2_np.shape[0]}")
-                print(f"Audio1 length: {audio1_np.shape[1]}, Audio2 length: {audio2_np.shape[1]}")
-                
+                print(
+                    f"Audio1 shape: {audio1_np.shape}, Audio2 shape: {audio2_np.shape}")
+                print(
+                    f"Audio1 channels: {audio1_np.shape[0]}, Audio2 channels: {audio2_np.shape[0]}")
+                print(
+                    f"Audio1 length: {audio1_np.shape[1]}, Audio2 length: {audio2_np.shape[1]}")
+
             # Print tensor information
             if 'audio1_tensor' in locals() and 'audio2_tensor' in locals():
                 print(f"Original audio1_tensor shape: {audio1_tensor.shape}")
